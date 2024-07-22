@@ -4,6 +4,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Placing User Order for Frontend
 const placeOrder = async (req, res) => {
+  const frontend_url = "https://yammy-in.onrender.com"
   try {
     const newOrder = new orderModel({
       userId: req.body.userId,
