@@ -4,6 +4,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Placing User Order for Frontend
 const placeOrder = async (req, res) => {
+  const frontend_url = "https://yammy-in.onrender.com"
   try {
     const newOrder = new orderModel({
       userId: req.body.userId,
@@ -37,8 +38,8 @@ const placeOrder = async (req, res) => {
     });
 
     const session = await stripe.checkout.sessions.create({
-      success_url: `http://localhost:5173/verify?success=true&orderId=${newOrder._id}`,
-      cancel_url: `http://localhost:5173/verify?success=false&orderId=${newOrder._id}`,
+      success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
       line_items: line_items,
       mode: "payment",
     });
